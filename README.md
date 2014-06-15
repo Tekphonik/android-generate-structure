@@ -1,6 +1,6 @@
 # Android Structure Generation
 
-This script is used to generate a basic Activity-View-TouchListener structure in the current directory.
+This script is used to generate a basic Activity-View-TouchListener structure for Android Custom View Projects in the current directory.
 
 ## Installation
 
