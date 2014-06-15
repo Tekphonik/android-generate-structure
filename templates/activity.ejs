@@ -1,0 +1,13 @@
+public class <%= name %>Activity extends Activity {
+
+	<%= name %>View view;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+
+		view = new <%= name %>View(this);
+
+		setContentView(view);
+	}
+}

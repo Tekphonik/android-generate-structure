@@ -1,0 +1,15 @@
+{
+  "name": "tdstruct",
+  "version": "0.0.0",
+  "description": "Node script to generate Android File Structure",
+  "main": "generate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "1.0.0",
+    "path": "0.4.9"
+  }
+}

@@ -1,0 +1,19 @@
+public class <%= name %>View extends View {
+	
+	<%= name %>Activity activity;
+	<%= name %>TouchListener touch;
+
+	public <%= name %>View(<%= name %>Activity activity){
+		this.activity = activity;
+
+		touch = new <%= name %>TouchListener(this);
+
+		setOnTouchListener(touch);
+	}
+
+	@Overide
+	public void onDraw(Canvas c){
+		super(c);
+	}
+
+}
