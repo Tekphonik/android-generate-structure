@@ -9,7 +9,7 @@ This script is used to generate a basic Activity-View-TouchListener structure fo
 
 ## Usage
 
-##Be sure that you have changed into your desired directory##
+**Be sure that you have changed into your desired directory**
 
 Otherwise it will cause an error, as the script searches for com."organisation_name".... pattern.
 
