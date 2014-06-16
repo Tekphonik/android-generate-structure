@@ -8,6 +8,13 @@ var projPath = dir.match(/com\/[a-zA-Z0-9\/]+/).toString();
 projPath = projPath.replace(/\//g, ".");
 projPath += "."+args[0];
 
+var manifestPath = dir.match(/[a-zA-Z0-9\/]+main/)
+manifestPath += "/AndroidManifest.xml"
+console.log(fs.readFileSync(manifestPath, 'utf-8'));
+console.log(ejs.render(fs.readFileSync(__dirname + '/templates/manifest.ejs', 'utf-8'), {name: args[0]}));
+
+//console.log(fs.createWriteStream(manifestPath, 'utf-8'));
+
 var callbacks = {
 	activity: function(err){
 		if (err) throw err;
@@ -39,10 +46,10 @@ var data = {
 	}
 }
 
-if (!fs.existsSync(dir+'/'+args[0])) {
-    fs.mkdirSync(dir+'/'+args[0]);
-}
+// if (!fs.existsSync(dir+'/'+args[0])) {
+//     fs.mkdirSync(dir+'/'+args[0]);
+// }
 
-fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'Activity.java', data.activity(), callbacks.activity());
-fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'View.java', data.view(), callbacks.view());
-fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'TouchListener.java', data.touchListener(), callbacks.touchListener());
+// fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'Activity.java', data.activity(), callbacks.activity());
+// fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'View.java', data.view(), callbacks.view());
+// fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'TouchListener.java', data.touchListener(), callbacks.touchListener());
