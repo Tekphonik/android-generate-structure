@@ -1,9 +1,15 @@
+package <%= path %>;
+
+import android.graphics.Canvas;
+import android.view.View;
+
 public class <%= name %>View extends View {
 	
 	<%= name %>Activity activity;
 	<%= name %>TouchListener touch;
 
 	public <%= name %>View(<%= name %>Activity activity){
+		super(activity);
 		this.activity = activity;
 
 		touch = new <%= name %>TouchListener(this);
@@ -11,9 +17,9 @@ public class <%= name %>View extends View {
 		setOnTouchListener(touch);
 	}
 
-	@Overide
-	public void onDraw(Canvas c){
-		super(c);
-	}
+	@Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+    }
 
 }

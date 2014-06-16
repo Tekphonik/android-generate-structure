@@ -4,6 +4,9 @@ var ejs = require('ejs')
 var dir = process.cwd();
 var args = process.argv.slice(2);
 
+var projPath = dir.match(/com\/[a-zA-Z0-9\/]+/).toString();
+projPath = projPath.replace(/\//g, ".");
+
 var callbacks = {
 	activity: function(err){
 		if (err) throw err;
@@ -23,15 +26,15 @@ var callbacks = {
 
 var data = {
 	activity: function(){
-		return ejs.render(fs.readFileSync(__dirname + '/templates/activity.ejs', 'utf-8'), {name: args[0]})
+		return ejs.render(fs.readFileSync(__dirname + '/templates/activity.ejs', 'utf-8'), {name: args[0], path: projPath})
 	},
 
 	view: function(){
-		return ejs.render(fs.readFileSync(__dirname + '/templates/view.ejs', 'utf-8'), {name: args[0]})
+		return ejs.render(fs.readFileSync(__dirname + '/templates/view.ejs', 'utf-8'), {name: args[0], path: projPath})
 	},
 
 	touchListener: function(){
-		return ejs.render(fs.readFileSync(__dirname + '/templates/touchListener.ejs', 'utf-8'), {name: args[0]})
+		return ejs.render(fs.readFileSync(__dirname + '/templates/touchListener.ejs', 'utf-8'), {name: args[0], path: projPath})
 	}
 }
 
