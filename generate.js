@@ -6,6 +6,7 @@ var args = process.argv.slice(2);
 
 var projPath = dir.match(/com\/[a-zA-Z0-9\/]+/).toString();
 projPath = projPath.replace(/\//g, ".");
+projPath += "."+args[0];
 
 var callbacks = {
 	activity: function(err){
@@ -38,6 +39,10 @@ var data = {
 	}
 }
 
-fs.writeFile(dir+'/'+args[0]+'Activity.java', data.activity(), callbacks.activity());
-fs.writeFile(dir+'/'+args[0]+'View.java', data.view(), callbacks.view());
-fs.writeFile(dir+'/'+args[0]+'TouchListener.java', data.touchListener(), callbacks.touchListener());
+if (!fs.existsSync(dir+'/'+args[0])) {
+    fs.mkdirSync(dir+'/'+args[0]);
+}
+
+fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'Activity.java', data.activity(), callbacks.activity());
+fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'View.java', data.view(), callbacks.view());
+fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'TouchListener.java', data.touchListener(), callbacks.touchListener());
