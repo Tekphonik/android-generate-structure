@@ -11,13 +11,6 @@ projPath += "."+args[0];
 var manifestPath = dir.match(/[a-zA-Z0-9\/]+main/)
 manifestPath += "/AndroidManifest.xml"
 
-var manifest = fs.readFileSync(manifestPath, 'utf-8');
-
-var partOne = manifest.match(/[\s\S]+<\/application>/).toString().replace("</application>", "");
-var partTwo = manifest.match(/<\/application>[\s\S]+/).toString();
-
-var newManifest = partOne + ejs.render(fs.readFileSync(__dirname + '/templates/manifest.ejs', 'utf-8'), {name: args[0]}) + partTwo;
-
 var callbacks = {
 	activity: function(err){
 		if (err) throw err;
@@ -51,6 +44,17 @@ var data = {
 
 	touchListener: function(){
 		return ejs.render(fs.readFileSync(__dirname + '/templates/touchListener.ejs', 'utf-8'), {name: args[0], path: projPath})
+	},
+
+	manifest: function(){
+		var manifest = fs.readFileSync(manifestPath, 'utf-8');
+
+		var partOne = manifest.match(/[\s\S]+<\/application>/).toString().replace("</application>", "");
+		var partTwo = manifest.match(/<\/application>[\s\S]+/).toString();
+
+		var newManifest = partOne + ejs.render(fs.readFileSync(__dirname + '/templates/manifest.ejs', 'utf-8'), {name: args[0]}) + partTwo;
+
+		return newManifest;
 	}
 }
 
@@ -61,5 +65,4 @@ if (!fs.existsSync(dir+'/'+args[0])) {
 fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'Activity.java', data.activity(), callbacks.activity());
 fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'View.java', data.view(), callbacks.view());
 fs.writeFile(dir+'/'+args[0]+'/'+args[0]+'TouchListener.java', data.touchListener(), callbacks.touchListener());
-
-fs.writeFile(manifestPath, newManifest, callbacks.manifest());
+fs.writeFile(manifestPath, data.manifest(), callbacks.manifest());
