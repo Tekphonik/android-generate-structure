@@ -2,6 +2,8 @@
 
 This script is used to generate a basic Activity-View-TouchListener structure for Android Custom View Projects in the current directory.
 
+# *This project is currently undergoing major changes. README is NOT up to date.
+
 ## Installation
 
 - `git clone https://github.com/Nitemaeric/android-generate-structure.git` to grab the script.
