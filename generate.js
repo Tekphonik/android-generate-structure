@@ -1,36 +1,35 @@
 var fs = require('fs')
 var ejs = require('ejs')
-
-var dir = process.cwd();
-var args = process.argv.slice(2);
-
-var projPath = dir.match(/com\/[a-zA-Z0-9\/]+/).toString();
-projPath = projPath.replace(/\//g, ".");
-projPath += "."+args[0];
-
-var manifestPath = dir.match(/[a-zA-Z0-9\/]+main/)
-manifestPath += "/AndroidManifest.xml"
+var v = require('./lib/var.js')
+var error = require('./lib/error.js')
 
 // args[0] check generation type => 'activity', 'object'
 // args[1] generation name
 // args[2] options => activty -> '-l'
 
-if(args.length < 2){
-	console.log("Needs at least 2 arguments.");
-	console.log("Usage:");
-	console.log("ags TYPE NAME [OPTIONS]");
-	console.log("e.g. ags activity Main");
+if(v.args.length < 2){
+	error.length();
+	process.exit(1);
 }
 
-var type = args[0].toLowerCase();
-var name = args[1].charAt(0).toUpperCase() + args[1].slice(1);
-var options = args.slice(2);
+var generator;
 
-if(type == 'activity'){
-	var activity = require(__dirname + '/lib/activity.js')
-	activity.generate(options);
+if(v.type == 'activity'){
+	generator = require('./lib/activity.js')
+	
 }
-else if(type == 'gameobject'){
-	var gameObject = require(__dirname + '/lib/gameObject.js')
-	gameObject.generate(options, path)
+else if(v.type == 'gameobject'){
+	generator = require('./lib/gameObject.js')
+}
+else {
+	error.type(v.type);
+	process.exit(1);
+}
+
+if(v.projPath){
+	generator.generate(v.options);
+}
+else{
+	error.path();
+	process.exit(1);
 }
