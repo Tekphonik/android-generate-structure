@@ -1,8 +1,39 @@
-public class <%= name %>TouchListener implements TouchListener {
+package <%= path %>;
+
+import android.view.MotionEvent;
+import android.view.View;
+
+public class <%= name %>TouchListener implements View.OnTouchListener {
 
 	<%= name %>View view;
 
 	public <%= name %>TouchListener(<%= name %>View view){
-		this.view = view;
+        this.view = view;
+    }
+
+	@Override
+    public boolean onTouch(View v, MotionEvent e) {
+    	if(e.getAction() == MotionEvent.ACTION_DOWN) {
+			touchDown(v, e);
+    	}
+    	else if(e.getAction() == MotionEvent.ACTION_UP) {
+			touchUp(v, e);
+    	}
+		else if(e.getAction() == MotionEvent.ACTION_MOVE) {
+			touchMove(v, e);
+		}
+        return false;
+    }
+
+	boolean touchDown(View v, MotionEvent e) {
+		return false;
+	}
+
+	boolean touchUp(View v, MotionEvent e) {
+		return false;
+	}
+
+	boolean touchMove(View v, MotionEvent e) {
+		return false;
 	}
 }
