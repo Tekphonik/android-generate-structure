@@ -1,4 +1,4 @@
-var fs = require('fs')
+var fs = require('fs-extra')
 var ejs = require('ejs')
 var v = require('./lib/var.js')
 var error = require('./lib/error.js')
