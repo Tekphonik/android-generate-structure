@@ -11,26 +11,28 @@ projPath += "."+args[0];
 var manifestPath = dir.match(/[a-zA-Z0-9\/]+main/)
 manifestPath += "/AndroidManifest.xml"
 
-var callbacks = {
-	activity: function(err){
-		if (err) throw err;
-		console.log("wrote activity");
-	},
+// args[0] check generation type => 'activity', 'object'
+// args[1] generation name
+// args[2] options => activty -> '-l'
 
-	view: function(err){
-		if (err) throw err;
-		console.log("wrote view");
-	},
+if(args.length < 2){
+	console.log("Needs at least 2 arguments.");
+	console.log("Usage:");
+	console.log("ags TYPE NAME [OPTIONS]");
+	console.log("e.g. ags activity Main");
+}
 
-	touchListener: function(err){
-		if (err) throw err;
-		console.log("wrote touch listener");
-	},
+var type = args[0].toLowerCase();
+var name = args[1].charAt(0).toUpperCase() + args[1].slice(1);
+var options = args.slice(2);
 
-	manifest: function(err) {
-		if (err) throw err;
-		console.log("updated manifest");
-	}
+if(type == 'activity'){
+	var activity = require(__dirname + '/lib/activity.js')
+	activity.generate(options);
+}
+else if(type == 'gameobject'){
+	var gameObject = require(__dirname + '/lib/gameObject.js')
+	gameObject.generate(options)
 }
 
 var data = {
